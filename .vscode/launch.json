@@ -1,0 +1,25 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: 
+https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "skipFiles": [
+        "<node_internals>/**",
+      ],
+      "program": 
+"${workspaceFolder}/q_and_a/1_qa_levkiv/fs-users-db/async-await-cli.js",
+      "outFiles": [
+        
+"${workspaceFolder}/q_and_a/1_qa_levkiv/fs-users-db/async-await-cli.js"
+      ],
+      "args": ["create-user", "-l=test2", "-e=test@email.com", 
+"-p=qwerty"]
+    }
+  ]
+}
