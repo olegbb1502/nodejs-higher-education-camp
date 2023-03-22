@@ -38,13 +38,31 @@ console.log('Anagrams: ', anagrams('monk','konm'));
  */
 
 // The most easyest but dangerous method. It can break execution proccess for BIG OBJECTS
-const deepObjClone = obj => ({...obj});
+const deepObjCloneConcat = obj => ({...obj});
 
 // Clone via Object.asign method, not sure that it can be good way for copying
-const deepObjClone2 = obj => Object.assign({}, obj);
+const deepObjCloneObject = obj => Object.assign({}, obj);
 
 // Clone via JSON methods, it`s just for simple values :( For methods in obj it doesn`t work
-const deepObjClone3 = obj => JSON.parse(JSON.stringify(obj))
+const deepObjCloneJSON = obj => JSON.parse(JSON.stringify(obj))
+
+// Deep clone with recursive
+const deepCloneRecursive = obj => {
+    if (obj === null) return null;
+    let clone = Object.assign({}, obj);
+    Object.keys(clone).forEach(key => {
+        // check if Date
+        if (obj[key] instanceof Date)
+            clone[key] = obj[key];
+        else 
+            clone[key] = typeof obj[key] === 'object' ? deepCloneRecursive(obj[key]) : obj[key]
+    });
+    if (Array.isArray(obj)) {
+      clone.length = obj.length;
+      return Array.from(clone);
+    }
+    return clone;
+  };
 
 const testingObj = {
     name: 'Name',
@@ -55,9 +73,10 @@ const testingObj = {
     }
 }
 
-console.log(`Real Obj:`, testingObj, `Clone 1:`, deepObjClone(testingObj));
-console.log(`Real Obj:`, testingObj, `Clone 2:`, deepObjClone2(testingObj));
-console.log(`Real Obj:`, testingObj, `Clone 3:`, deepObjClone3(testingObj));
+console.log(`Real Obj:`, testingObj, `Clone concats:`, deepObjCloneConcat(testingObj));
+console.log(`Real Obj:`, testingObj, `Clone Object class:`, deepObjCloneObject(testingObj));
+console.log(`Real Obj:`, testingObj, `Clone JSON:`, deepObjCloneJSON(testingObj));
+console.log(`Real Obj:`, testingObj, `Clone recursive:`, deepCloneRecursive(testingObj));
 
 /**
  * Write a function-wrapper, that will cache the result of any other function.
